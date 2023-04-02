@@ -3,7 +3,7 @@ from flask import Flask,Response,request
 app=Flask(__name__)
 
 
-@app.route("/test")
+@app.route("/")
 def test():
     print(request.args)
     return {"message":"works"} 
