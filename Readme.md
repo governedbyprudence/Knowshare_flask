@@ -9,3 +9,6 @@
 2. Activate the virtual environment by running .env\Scripts\activate (for Windows) or .env\bin\activate (for Linux)
 3. Go to app directory and run pip install -r requirements.txt
 4. Setup Done
+
+
+url: https://knowshare-flask.vercel.app
