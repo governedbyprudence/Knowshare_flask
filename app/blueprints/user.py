@@ -1,5 +1,5 @@
 from flask import Blueprint,request,make_response,jsonify
-from db.database import db,serect_keys
+from db.database import db,secret_key
 from sqlalchemy import select
 from models.user import User
 import jwt
@@ -18,7 +18,7 @@ def token_required(func):
         if not token:
             return jsonify({'Alert!': 'Token is missing!'})
         try:
-            payload=jwt.decode(token,serect_keys,algorithms=["HS256"])
+            payload=jwt.decode(token,secret_key,algorithms=["HS256"])
             # if payload['username'] and  payload['password']:
             #     return jsonify('verified payload : ',payload)
             payload=func()
@@ -52,7 +52,7 @@ def signup():
 @token_required
 def get_user():
     data=User.query.all()
-    result=[{"ID":item.Id,"username" : item.username, "password" : item.password} for item in data]
+    result=[{"ID":item.Id,"username" : item.username} for item in data]
     return result
 
 
@@ -67,8 +67,8 @@ def login():
             'username':data['username'],
             'password':data['password']
             },
-        serect_keys)
-            return token
+        secret_key)
+            return jsonify(token=token)
         else:
             return 'Invalid Password or Password'
     except Exception as e:
